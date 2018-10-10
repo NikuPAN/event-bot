@@ -113,14 +113,14 @@ def	onPlayerTalk(user_message, event):
 			message = TextSendMessage(text = "睡你麻痺 頭髮沒掉光繼續肝！")
 			line_bot_api.reply_message(event.reply_token,message)
 			
-		if(Mn == 0 and has_said == 0):
+		if(int(Mn) == 0 and has_said == 0):
 			has_said = 1;
 			reply_message = "好棒 " + hour_Convert(int(Hr)) + " 點了～"
 			message = TextSendMessage(text = reply_message)
 			line_bot_api.reply_message(event.reply_token,message)
 	
 	# reset said @ minute = 30 prevent spam
-	if(Mn >= 30 and has_said == 1):
+	if(int(Mn) >= 30 and has_said == 1):
 		has_said = 0
 		
 		
