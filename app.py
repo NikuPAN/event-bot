@@ -62,11 +62,11 @@ def handle_message(event):
 		line_bot_api.reply_message(event.reply_token,message)
 	elif(user_message == "/關機"):
 		quit()
-	elif(user_message == "/關閉" or user_message == "/start"):
+	elif(user_message == "/關閉" or user_message == "/stop"):
 		message = TextSendMessage(text='禿子專用報時系統已被關閉！')
 		line_bot_api.reply_message(event.reply_token,message)
 		mode = 0
-	elif(user_message == "/開啟" or user_message == "/stop"):
+	elif(user_message == "/開啟" or user_message == "/start"):
 		message = TextSendMessage(text='禿子專用報時系統已經開啟！')
 		line_bot_api.reply_message(event.reply_token,message)
 		mode = 1
@@ -95,23 +95,24 @@ def	onPlayerTalk(user_message, event):
 
 	time = str(datetime.time)
 	# print(time+"\n")
-	Hr = str(datetime.time.hour)
-	Mn = str(datetime.time.minute)
+	Hr = int( str(datetime.time.hour) )
+	Mn = int( str(datetime.time.minute) )
 	# Sc = str(datetime.time.second)
-	# reset said @ minute = 30 prevent spam
-	if(int(Mn) == 30 and has_said == 1):
-		has_said = 0
 	# only process message when mode = 1;
 	if(mode == 1):
 		if(user_message == "報時"):
-			reply_message = "真棒 現在是" + hour_Convert(int(Hr)) + " 時 " + Mn + " 分～"
+			reply_message = "真棒 現在是" + hour_Convert(Hr) + " 時 " + Mn + " 分～"
 			message = TextSendMessage(text = reply_message)
 			line_bot_api.reply_message(event.reply_token,message)
 		if(Mn == 0 and has_said == 0):
 			has_said = 1;
-			reply_message = "好棒 " + hour_Convert(int(Hr)) + " 點了～"
+			reply_message = "好棒 " + hour_Convert(Hr) + " 點了～"
 			message = TextSendMessage(text = reply_message)
 			line_bot_api.reply_message(event.reply_token,message)
+	
+	# reset said @ minute = 30 prevent spam
+	if(Mn == 30 and has_said == 1):
+		has_said = 0
 		
 		
 
