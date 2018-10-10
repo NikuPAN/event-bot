@@ -93,7 +93,7 @@ def	onPlayerTalk(user_message, event):
 	global mode
 	global has_said
 	# only process message when mode = 1;
-	time = datetime.time
+	time = str(datetime.time)
 	(Hr, Mn, Sc) = time.split(':')
 	# reset said @ minute = 30 prevent spam
 	if(Mn == 30 and has_said == 1):
