@@ -2,6 +2,8 @@ from __future__ import print_function
 
 import time
 import datetime
+from pytz import timezone
+
 # import gspread
 import re
 import os
@@ -31,6 +33,8 @@ handler = WebhookHandler('9ffa9b07f9a2dfef20cffd300af6df4e')
 # global variables
 mode = 1
 has_said = 0
+fmt = '%H:%M:%S'
+twt = timezone('Asia/Taipei')
 
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
@@ -93,10 +97,10 @@ def	onPlayerTalk(user_message, event):
 	global mode
 	global has_said
 
-	time = str(datetime.time)
+	time = str(datetime.now(twt).strftime(fmt))
 	# print(time+"\n")
-	Hr = int( str(datetime.time.hour) )
-	Mn = int( str(datetime.time.minute) )
+	Hr = int( str(time.hour) )
+	Mn = int( str(time.minute) )
 	# Sc = str(datetime.time.second)
 	# only process message when mode = 1;
 	if(mode == 1):
