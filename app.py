@@ -35,6 +35,7 @@ mode = 1
 has_said = 0
 fmt = '%H:%M:%S'
 twt = timezone('Asia/Taipei')
+app_name = '落髮士報時'
 
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
@@ -62,16 +63,16 @@ def handle_message(event):
 	user_message = event.message.text
 	
 	if(user_message == "test"):
-		message = TextSendMessage(text='歡迎使用禿子專用報時系統！')
+		message = TextSendMessage(text='歡迎使用'+app_name+'！')
 		line_bot_api.reply_message(event.reply_token,message)
 	elif(user_message == "/關機"):
 		quit()
 	elif(user_message == "/關閉" or user_message == "/stop"):
-		message = TextSendMessage(text='禿子專用報時系統已被關閉！')
+		message = TextSendMessage(text=app_name+'已被關閉！')
 		line_bot_api.reply_message(event.reply_token,message)
 		mode = 0
 	elif(user_message == "/開啟" or user_message == "/start"):
-		message = TextSendMessage(text='禿子專用報時系統已經開啟！')
+		message = TextSendMessage(text=app_name+'已經開啟！')
 		line_bot_api.reply_message(event.reply_token,message)
 		mode = 1
 		
