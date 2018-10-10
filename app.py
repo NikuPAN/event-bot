@@ -10,9 +10,11 @@ import os
 # from httplib2 import Http
 # from oauth2client import file, client, tools
 
-from flask import Flask, request, abort
+from flask import (
+	Flask, request, abort
+)
 from urllib.request import urlopen
-from oauth2client.service_account import ServiceAccountCredentials
+# from oauth2client.service_account import ServiceAccountCredentials
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -30,7 +32,7 @@ handler = WebhookHandler('9ffa9b07f9a2dfef20cffd300af6df4e')
 
 # global variables
 mode = 1
-has_said = 0;
+has_said = 0
 
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
