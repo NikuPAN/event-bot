@@ -96,7 +96,8 @@ def hour_Convert(Hour):
 def	onPlayerTalk(user_message, event):
 	global mode
 	global has_said
-
+	global twt
+	global fmt
 	time = str(datetime.now(twt).strftime(fmt))
 	# print(time+"\n")
 	Hr = int( str(time.hour) )
