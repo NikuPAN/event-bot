@@ -74,18 +74,19 @@ def handle_message(event):
 	onPlayerTalk(user_message, event)
 	
 def hour_Convert(Hour):
-	if(Hour >= 0 and Hour <= 3):
+	hrs = int(Hour)
+	if(hrs >= 0 and hrs <= 3):
 		return "凌晨 " + Hour
-	elif(Hour >= 4 and Hour <= 6):
+	elif(hrs >= 4 and hrs <= 6):
 		return "清晨 " + Hour
-	elif(Hour >= 7 and Hour <= 11):
+	elif(hrs >= 7 and hrs <= 11):
 		return "早上 " + Hour
-	elif(Hour == 12):
+	elif(hrs == 12):
 		return "中午 " + Hour
-	elif(Hour >= 13 and Hour <= 18):
-		return "下午 " + (Hour - 12)
-	elif(Hour >= 19 and Hour <= 23):
-		return "晚上 " + (Hour - 12)
+	elif(hrs >= 13 and hrs <= 18):
+		return "下午 " + str(hrs - 12)
+	elif(hrs >= 19 and hrs <= 23):
+		return "晚上 " + str(hrs - 12)
 	
 		
 		
