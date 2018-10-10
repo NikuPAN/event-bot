@@ -35,7 +35,7 @@ mode = 1
 has_said = 0
 fmt = '%H:%M:%S'
 twt = timezone('Asia/Taipei')
-app_name = '落髮士報時'
+app_name = '髮落士報時'
 
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
@@ -109,6 +109,10 @@ def	onPlayerTalk(user_message, event):
 			reply_message = "真棒 " + hour_Convert(int(Hr)) + " 時 " + Mn + " 分了～哦耶！！"
 			message = TextSendMessage(text = reply_message)
 			line_bot_api.reply_message(event.reply_token,message)
+		elif(user_message == "睡"):
+			message = TextSendMessage(text = "睡你麻痺 頭髮沒掉光繼續肝！")
+			line_bot_api.reply_message(event.reply_token,message)
+			
 		if(Mn == 0 and has_said == 0):
 			has_said = 1;
 			reply_message = "好棒 " + hour_Convert(int(Hr)) + " 點了～"
