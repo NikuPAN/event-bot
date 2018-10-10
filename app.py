@@ -1,7 +1,7 @@
 from __future__ import print_function
 
 import time
-import datetime
+from datetime import datetime
 from pytz import timezone
 
 # import gspread
