@@ -62,7 +62,7 @@ def handle_message(event):
 	user_message = event.message.text
 	
 	if(user_message == "test"):
-		message = TextSendMessage(text='Hello World !!!')
+		message = TextSendMessage(text='歡迎使用禿子專用報時系統！')
 		line_bot_api.reply_message(event.reply_token,message)
 	elif(user_message == "/關機"):
 		quit()
