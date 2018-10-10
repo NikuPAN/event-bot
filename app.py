@@ -100,7 +100,7 @@ def	onPlayerTalk(user_message, event):
 	global fmt
 	time = str(datetime.now(twt).strftime(fmt))
 	# print(time+"\n")
-	(Hr, Mn) = time.split(':')
+	(Hr, Mn, Sc) = time.split(':')
 	# Sc = str(datetime.time.second)
 	# only process message when mode = 1;
 	if(mode == 1):
