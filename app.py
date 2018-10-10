@@ -10,9 +10,7 @@ import os
 # from httplib2 import Http
 # from oauth2client import file, client, tools
 
-from flask import (
-	Flask, request, abort
-)
+from flask import Flask, request, abort
 from urllib.request import urlopen
 # from oauth2client.service_account import ServiceAccountCredentials
 
