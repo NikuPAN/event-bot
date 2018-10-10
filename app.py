@@ -74,19 +74,18 @@ def handle_message(event):
 	onPlayerTalk(user_message, event)
 	
 def hour_Convert(Hour):
-	hrs = int(Hour)
-	if(hrs >= 0 and hrs <= 3):
-		return "凌晨 " + Hour
-	elif(hrs >= 4 and hrs <= 6):
-		return "清晨 " + Hour
-	elif(hrs >= 7 and hrs <= 11):
-		return "早上 " + Hour
-	elif(hrs == 12):
-		return "中午 " + Hour
-	elif(hrs >= 13 and hrs <= 18):
-		return "下午 " + str(hrs - 12)
-	elif(hrs >= 19 and hrs <= 23):
-		return "晚上 " + str(hrs - 12)
+	if(Hour >= 0 and Hour <= 3):
+		return "凌晨 " + str(Hour)
+	elif(Hour >= 4 and Hour <= 6):
+		return "清晨 " + str(Hour)
+	elif(Hour >= 7 and Hour <= 11):
+		return "早上 " + str(Hour)
+	elif(Hour == 12):
+		return "中午 " + str(Hour)
+	elif(Hour >= 13 and Hour <= 18):
+		return "下午 " + str(Hour - 12)
+	elif(Hour >= 19 and Hour <= 23):
+		return "晚上 " + str(Hour - 12)
 	
 		
 		
@@ -94,8 +93,8 @@ def	onPlayerTalk(user_message, event):
 	global mode
 	global has_said
 	# only process message when mode = 1;
-	Hr = datetime.time.hour
-	Mn = datetime.time.minute
+	time = datetime.time
+	(Hr, Mn, Sc) = time.split(':')
 	# reset said @ minute = 30 prevent spam
 	if(Mn == 30 and has_said == 1):
 		has_said = 0
