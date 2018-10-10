@@ -100,12 +100,12 @@ def	onPlayerTalk(user_message, event):
 		has_said = 0
 	if(mode == 1):
 		if(user_message == "報時"):
-			reply_message = "真棒 現在是" + hour_Convert(Hr) + " 時 " + Mn + " 分～"
+			reply_message = "真棒 現在是" + hour_Convert(int(Hr)) + " 時 " + Mn + " 分～"
 			message = TextSendMessage(text = reply_message)
 			line_bot_api.reply_message(event.reply_token,message)
 		if(Mn == 0 and has_said == 0):
 			has_said = 1;
-			reply_message = "好棒 " + hour_Convert(Hr) + " 點了～"
+			reply_message = "好棒 " + hour_Convert(int(Hr)) + " 點了～"
 			message = TextSendMessage(text = reply_message)
 			line_bot_api.reply_message(event.reply_token,message)
 		
