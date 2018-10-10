@@ -99,13 +99,13 @@ def	onPlayerTalk(user_message, event):
 	global twt
 	global fmt
 	time = str(datetime.now(twt).strftime(fmt))
-	# print(time+"\n")
 	(Hr, Mn, Sc) = time.split(':')
 	# Sc = str(datetime.time.second)
 	# only process message when mode = 1;
 	if(mode == 1):
-		if(user_message == "報時"):
-			reply_message = "真棒 現在是" + hour_Convert(int(Hr)) + " 時 " + Mn + " 分～"
+		if(user_message == "報時" or user_message == "time"):
+			# reply_message = "真棒 現在是" + hour_Convert(int(Hr)) + " 時 " + Mn + " 分～"
+			reply_message = "真棒 " + hour_Convert(int(Hr)) + " 時 " + Mn + " 分了～哦耶！！"
 			message = TextSendMessage(text = reply_message)
 			line_bot_api.reply_message(event.reply_token,message)
 		if(Mn == 0 and has_said == 0):
@@ -115,7 +115,7 @@ def	onPlayerTalk(user_message, event):
 			line_bot_api.reply_message(event.reply_token,message)
 	
 	# reset said @ minute = 30 prevent spam
-	if(Mn == 30 and has_said == 1):
+	if(Mn >= 30 and has_said == 1):
 		has_said = 0
 		
 		
