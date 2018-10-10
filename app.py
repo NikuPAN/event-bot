@@ -92,13 +92,16 @@ def hour_Convert(Hour):
 def	onPlayerTalk(user_message, event):
 	global mode
 	global has_said
-	# only process message when mode = 1;
+
 	time = str(datetime.time)
-	print(time+"\n")
-	(Hr, Mn, Sc) = time.split(',')
+	# print(time+"\n")
+	Hr = str(datetime.time.hour)
+	Mn = str(datetime.time.minute)
+	# Sc = str(datetime.time.second)
 	# reset said @ minute = 30 prevent spam
-	if(Mn == 30 and has_said == 1):
+	if(int(Mn) == 30 and has_said == 1):
 		has_said = 0
+	# only process message when mode = 1;
 	if(mode == 1):
 		if(user_message == "報時"):
 			reply_message = "真棒 現在是" + hour_Convert(int(Hr)) + " 時 " + Mn + " 分～"
