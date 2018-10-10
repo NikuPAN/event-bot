@@ -1,7 +1,7 @@
 from __future__ import print_function
 
 import time
-import gspread
+# import gspread
 import re
 import datetime
 import os
