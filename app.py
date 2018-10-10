@@ -33,7 +33,7 @@ handler = WebhookHandler('9ffa9b07f9a2dfef20cffd300af6df4e')
 # global variables
 mode = 1
 has_said = 0
-fmt = '%H:%M:%S'
+fmt = '%H:%M'
 twt = timezone('Asia/Taipei')
 app_name = '髮落士報時'
 
@@ -100,7 +100,7 @@ def	onPlayerTalk(user_message, event):
 	global twt
 	global fmt
 	time = str(datetime.now(twt).strftime(fmt))
-	(Hr, Mn, Sc) = time.split(':')
+	(Hr, Mn) = time.split(':')
 	# Sc = str(datetime.time.second)
 	# only process message when mode = 1;
 	if(mode == 1):
@@ -108,9 +108,6 @@ def	onPlayerTalk(user_message, event):
 			# reply_message = "真棒 現在是" + hour_Convert(int(Hr)) + " 時 " + Mn + " 分～"
 			reply_message = "真棒 " + hour_Convert(int(Hr)) + " 時 " + Mn + " 分了～哦耶！！"
 			message = TextSendMessage(text = reply_message)
-			line_bot_api.reply_message(event.reply_token,message)
-		elif(user_message == "睡"):
-			message = TextSendMessage(text = "睡你麻痺 頭髮沒掉光繼續肝！")
 			line_bot_api.reply_message(event.reply_token,message)
 			
 		if(int(Mn) == 0 and has_said == 0):
@@ -120,7 +117,7 @@ def	onPlayerTalk(user_message, event):
 			line_bot_api.reply_message(event.reply_token,message)
 	
 	# reset said @ minute = 30 prevent spam
-	if(int(Mn) >= 30 and has_said == 1):
+	if(int(Mn) >= 3 and has_said == 1):
 		has_said = 0
 		
 		
