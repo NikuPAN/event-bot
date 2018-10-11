@@ -29,7 +29,7 @@ handler = WebhookHandler('9ffa9b07f9a2dfef20cffd300af6df4e')
 
 # global variables
 app_name = '髮落士報時'
-version = 74
+version = 76
 mode = 1
 has_said = 0
 fmt = '%H:%M'
@@ -156,10 +156,13 @@ def onPlayerTalk(user_message, event):
             argu = user_message.split(' ')
             print(str(argu[1]))
             result = switchRegion(str(argu[1]))
-            if(result != "Invalid"):
+            # reply_message = "NULL" #declare
+            if(result == "Invalid"):
                 reply_message = ("棒棒 系統時間已被設定為 " + result + " 時區.")
                 message = TextSendMessage(text = reply_message)
                 line_bot_api.reply_message(event.reply_token, message)
+            # else:
+                # reply_message = ("使用：tz [tw/jp/qld/mel]")
             
         if(int(Mn) == 0 and has_said == 0):
             has_said = 1
