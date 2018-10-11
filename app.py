@@ -29,7 +29,7 @@ handler = WebhookHandler('9ffa9b07f9a2dfef20cffd300af6df4e')
 
 # global variables
 app_name = '髮落士報時'
-version = 51
+version = 66
 mode = 1
 has_said = 0
 fmt = '%H:%M'
@@ -157,7 +157,7 @@ def    onPlayerTalk(user_message, event):
             result = switchRegion(argu)
             reply_message = "NULL" #declare
             if(result == "Invalid"):
-                reply_message = ("目前沒有提供此時區選項！")
+                reply_message = ("使用：timezone [tw/jp/qld/mel]")
             else:
                 reply_message = ("棒棒 系統時間已被設定為 " + result + " 時區.")
             message = TextSendMessage(text = reply_message)
