@@ -75,7 +75,7 @@ def handle_message(event):
 	# onPlayerTalk(user_message, event)	
 	# using thread
 	try:
-		td.start_new_thread( onPlayerTalk(user_message, event) )
+		td.start_new_thread( onPlayerTalk, (user_message, event, ) )
 	except:
    		print("Error: unable to start thread")
 	
