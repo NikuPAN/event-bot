@@ -128,12 +128,13 @@ def set_timeRegion_AUMEL():
     return "墨爾本"
 
 def switchRegion(argu):
-    return {
+    switch = {
         "tw": set_timeRegion_TW,
         "jp": set_timeRegion_JP,
         "qld": set_timeRegion_AUQLD,
         "mel": set_timeRegion_AUMEL
-    }.get(argu, "Invalid")
+    }
+	return switch.get(argu, "Invalid")
 
 # english characters have been lower cased. Refer handle_message(event):
 def    onPlayerTalk(user_message, event):
