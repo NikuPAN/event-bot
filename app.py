@@ -65,7 +65,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     global app_name, version, mode
-    user_message = event.message.text.lower()
+    user_message = event.message.text.lower() # lower case
     # console command
     if(user_message == "test"):
         message = TextSendMessage(text='歡迎使用'+app_name+' v1.'+str(version)+'！')
@@ -154,6 +154,7 @@ def onPlayerTalk(user_message, event):
 
         elif(user_message.find("timezone ") == 0):
             argu = user_message.strip(' ')
+            printf(str(argu[1]))
             result = switchRegion(str(argu[1]))
             reply_message = "NULL" #declare
             if(result == "Invalid"):
