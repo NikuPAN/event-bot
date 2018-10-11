@@ -149,7 +149,7 @@ def    onPlayerTalk(user_message, event):
             line_bot_api.reply_message(event.reply_token, message)
 
         elif(user_message.find("timezone ") == 0):
-		    argu = user_message.lstrip("timezone ")
+            argu = user_message.lstrip("timezone ")
             result = str( switchRegion(argu) )
             reply_message = "NULL" #declare
             if(result == "Invalid"):
