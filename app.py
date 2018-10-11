@@ -29,7 +29,7 @@ handler = WebhookHandler('9ffa9b07f9a2dfef20cffd300af6df4e')
 
 # global variables
 app_name = '髮落士報時'
-version = 66
+version = 67
 mode = 1
 has_said = 0
 fmt = '%H:%M'
@@ -165,6 +165,7 @@ def    onPlayerTalk(user_message, event):
             
         if(int(Mn) == 0 and has_said == 0):
             has_said = 1
+            # reply_message = "好棒 " + hour_Convert(int(Hr)) + " 點("+sysregion+")了～"
             reply_message = "好棒 " + hour_Convert(int(Hr)) + " 點了～"
             message = TextSendMessage(text = reply_message)
             line_bot_api.reply_message(event.reply_token, message)
