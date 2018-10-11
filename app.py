@@ -1,6 +1,7 @@
 from __future__ import print_function
 
 import time
+import thread as td
 from datetime import datetime
 from pytz import timezone
 
@@ -16,12 +17,8 @@ from flask import Flask, request, abort
 from urllib.request import urlopen
 # from oauth2client.service_account import ServiceAccountCredentials
 
-from linebot import (
-    LineBotApi, WebhookHandler
-)
-from linebot.exceptions import (
-    InvalidSignatureError
-)
+from linebot import LineBotApi, WebhookHandler
+from linebot.exceptions import InvalidSignatureError
 from linebot.models import *
 
 app = Flask(__name__)
@@ -31,11 +28,12 @@ line_bot_api = LineBotApi('n19IlRMRXK05Vf7+Kunl0Y7NxrcStBVcTOy3whJzNVoQbNLTHnfk7
 handler = WebhookHandler('9ffa9b07f9a2dfef20cffd300af6df4e')
 
 # global variables
+app_name = '髮落士報時'
 mode = 1
 has_said = 0
 fmt = '%H:%M'
 twt = timezone('Asia/Taipei')
-app_name = '髮落士報時'
+# ----------------------------------------------------------
 
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
@@ -58,8 +56,6 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
 	global mode 
-	# print(today)
-	# print(event)		
 	user_message = event.message.text
 	
 	if(user_message == "test"):
@@ -75,8 +71,13 @@ def handle_message(event):
 		message = TextSendMessage(text=app_name+'已經開啟！')
 		line_bot_api.reply_message(event.reply_token,message)
 		mode = 1
-		
-	onPlayerTalk(user_message, event)
+	
+	# onPlayerTalk(user_message, event)	
+	# using thread
+	try:
+		td.start_new_thread( onPlayerTalk(user_message, event) )
+	except:
+   		print("Error: unable to start thread")
 	
 def hour_Convert(Hour):
 	if(Hour >= 0 and Hour <= 3):
@@ -92,7 +93,7 @@ def hour_Convert(Hour):
 	elif(Hour >= 19 and Hour <= 23):
 		return "晚上 " + str(Hour - 12)
 	
-		
+	
 		
 def	onPlayerTalk(user_message, event):
 	global mode
@@ -108,19 +109,18 @@ def	onPlayerTalk(user_message, event):
 			# reply_message = "真棒 現在是" + hour_Convert(int(Hr)) + " 時 " + Mn + " 分～"
 			reply_message = "真棒 " + hour_Convert(int(Hr)) + " 時 " + Mn + " 分了～哦耶！！"
 			message = TextSendMessage(text = reply_message)
-			line_bot_api.reply_message(event.reply_token,message)
+			line_bot_api.reply_message(event.reply_token, message)
 			
 		if(int(Mn) == 0 and has_said == 0):
 			has_said = 1;
 			reply_message = "好棒 " + hour_Convert(int(Hr)) + " 點了～"
 			message = TextSendMessage(text = reply_message)
-			line_bot_api.reply_message(event.reply_token,message)
+			line_bot_api.reply_message(event.reply_token, message)
 	
 	# reset said @ minute = 30 prevent spam
 	if(int(Mn) >= 3 and has_said == 1):
 		has_said = 0
-		
-		
+	
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
