@@ -1,7 +1,7 @@
 from __future__ import print_function
 
 import time
-import thread as td
+import threading as td
 from datetime import datetime
 from pytz import timezone
 
