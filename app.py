@@ -29,7 +29,7 @@ handler = WebhookHandler('9ffa9b07f9a2dfef20cffd300af6df4e')
 
 # global variables
 app_name = '髮落士報時'
-version = 46
+version = 49
 mode = 1
 has_said = 0
 fmt = '%H:%M'
@@ -107,25 +107,25 @@ def set_timeRegion_TW():
 	global systime, sysregion
 	systime = timezone('Asia/Taipei')
 	sysregion = 'TW'
-	return '台北'
+	return "台北"
 
 def set_timeRegion_JP():
 	global systime, sysregion
 	systime = timezone('Asia/Tokyo')
 	sysregion = 'JP'
-	return '東京'
+	return "東京"
 
 def set_timeRegion_AUQLD():
 	global systime, sysregion
 	systime = timezone('Australia/Brisbane')
 	sysregion = 'AU/QLD'
-	return '布里斯本'
+	return "布里斯本"
 
 def set_timeRegion_AUMEL():
 	global systime, sysregion
 	systime = timezone('Australia/Melbourne')
 	sysregion = 'AU/MEL'
-	return '墨爾本'
+	return "墨爾本"
 
 def switchRegion(argu):
     switcher = {
@@ -134,7 +134,7 @@ def switchRegion(argu):
         'qld': set_timeRegion_AUQLD,
 		'mel': set_timeRegion_AUMEL
     }
-	func = switcher.get(argu, lambda: 'Invalid')
+	func = switcher.get(argu, lambda: "Invalid")
 	return func()
 			
 # english characters have been lower cased. Refer handle_message(event):
@@ -152,11 +152,11 @@ def	onPlayerTalk(user_message, event):
 
 		elif(user_message.find("timezone ") == 0):
 			result = switchRegion( user_message.lstrip("timezone ") )
-			reply_message = 'NULL' #declare
-			if(result != 'Invalid'):
-				reply_message = ('系統時間已被設定為 ' + result + ' 時區.')
+			reply_message = "NULL" #declare
+			if(result == "Invalid"):
+				reply_message = ("目前沒有提供此時區選項！")
 			else:
-				reply_message = ('目前沒有提供此時區選項！')
+				reply_message = ("系統時間已被設定為 " + result + " 時區.")
 			message = TextSendMessage(text = reply_message)
 			line_bot_api.reply_message(event.reply_token, message)
 			
