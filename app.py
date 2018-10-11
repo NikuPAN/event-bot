@@ -154,7 +154,7 @@ def onPlayerTalk(user_message, event):
 
         elif(user_message.find("timezone ") == 0):
             argu = user_message.strip(' ')
-            result = switchRegion(argu[1])
+            result = switchRegion(str(argu[1]))
             reply_message = "NULL" #declare
             if(result == "Invalid"):
                 reply_message = ("使用：timezone [tw/jp/qld/mel]")
