@@ -135,7 +135,7 @@ def switchRegion(argu):
         "mel": set_timeRegion_AUMEL
     }
     funct = switch.get(argu, "Invalid")
-    return funct
+    return funct()
 
 # english characters have been lower cased. Refer handle_message(event):
 def    onPlayerTalk(user_message, event):
