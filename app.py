@@ -34,6 +34,18 @@ has_said = 0
 fmt = '%H:%M'
 twt = timezone('Asia/Taipei')
 # ----------------------------------------------------------
+class myThread (threading.Thread):
+   def __init__(self, user_message, event):
+      threading.Thread.__init__(self)
+      # self.threadID = threadID
+      self.user_message = user_message
+      self.event = event
+
+   def run(self):
+      print "Starting " + self.name
+      # Get lock to synchronize threads
+      onPlayerTalk(self.user_message, self.event)	
+      # Free lock to release next thread
 
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
@@ -71,13 +83,9 @@ def handle_message(event):
 		message = TextSendMessage(text=app_name+'已經開啟！')
 		line_bot_api.reply_message(event.reply_token,message)
 		mode = 1
-	
 	# onPlayerTalk(user_message, event)	
 	# using thread
-	try:
-		td.start_new_thread( onPlayerTalk, (user_message, event, ) )
-	except:
-   		print("Error: unable to start thread")
+	myThread(user_message, event).start()
 	
 def hour_Convert(Hour):
 	if(Hour >= 0 and Hour <= 3):
