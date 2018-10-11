@@ -29,7 +29,7 @@ handler = WebhookHandler('9ffa9b07f9a2dfef20cffd300af6df4e')
 
 # global variables
 app_name = '髮落士報時'
-version = 'v1.0.42'
+version = 43
 mode = 1
 has_said = 0
 fmt = '%H:%M'
@@ -66,7 +66,7 @@ def handle_message(event):
 	user_message = event.message.text
 	
 	if(user_message == "test"):
-		message = TextSendMessage(text='歡迎使用'+app_name+' '+version+'！'
+		message = TextSendMessage(text='歡迎使用'+app_name+' v1.0.'+str(version)+'！')
 		line_bot_api.reply_message(event.reply_token,message)
 
 	elif(user_message == "/關閉" or user_message == "/stop"):
