@@ -34,7 +34,7 @@ mode = 1
 has_said = 0
 fmt = '%H:%M'
 systime = timezone('Asia/Taipei')
-usage_cmd = '[可用指令] \ntest\t- BOT版本 \n/stop\t-關閉BOT \n/start-開啟BOT'
+usage_cmd = '[可用指令] \ntest\t- BOT版本 \n/stop\t-關閉BOT \n/start\t-開啟BOT'
 # ----------------------------------------------------------
 class myThread (td.Thread):
    def __init__(self, user_message, event):
@@ -69,15 +69,15 @@ def handle_message(event):
 	if(user_message == "test"):
 		message = TextSendMessage(text='歡迎使用'+app_name+' v1.'+str(version)+'！')
 		line_bot_api.reply_message(event.reply_token,message)
-	elif(user_message == "/關閉" or user_message == "/stop"):
+	elif(user_message == "/stop"):
 		message = TextSendMessage(text=app_name+'已被關閉！')
 		line_bot_api.reply_message(event.reply_token,message)
 		mode = 0
-	elif(user_message == "/開啟" or user_message == "/start"):
+	elif(user_message == "/start"):
 		message = TextSendMessage(text=app_name+'已經開啟！')
 		line_bot_api.reply_message(event.reply_token,message)
 		mode = 1	
-	elif(user_message == "/關閉" or user_message == "/help"):
+	elif(user_message == "/help"):
 		usage(event)
 	else: # using thread
 		myThread(user_message, event).start()
