@@ -156,17 +156,14 @@ def onPlayerTalk(user_message, event):
             argu = user_message.split(' ')
             print(str(argu[1]))
             result = switchRegion(str(argu[1]))
-            reply_message = "NULL" #declare
-            if(result == "Invalid"):
-                reply_message = ("使用：timezone [tw/jp/qld/mel]")
-            else:
+            if(result != "Invalid"):
                 reply_message = ("棒棒 系統時間已被設定為 " + result + " 時區.")
-            message = TextSendMessage(text = reply_message)
-            line_bot_api.reply_message(event.reply_token, message)
+                message = TextSendMessage(text = reply_message)
+                line_bot_api.reply_message(event.reply_token, message)
             
         if(int(Mn) == 0 and has_said == 0):
             has_said = 1
-            reply_message = "好棒 " + hour_Convert(int(Hr)) + " 點("+sysregion+")了!"
+            reply_message = "好棒 " + hour_Convert(int(Hr)) + " 點("+sysregion+")了！"
             # reply_message = "好棒 " + hour_Convert(int(Hr)) + " 點了～"
             message = TextSendMessage(text = reply_message)
             line_bot_api.reply_message(event.reply_token, message)
