@@ -29,12 +29,12 @@ handler = WebhookHandler('9ffa9b07f9a2dfef20cffd300af6df4e')
 
 # global variables
 app_name = '髮落士報時'
-version = 44
+version = 46
 mode = 1
 has_said = 0
 fmt = '%H:%M'
 systime = timezone('Asia/Taipei')
-usage_cmd = '[可用指令] \ntest\t- BOT版本 \n/stop\t-關閉BOT \n/start\t-開啟BOT'
+usage_cmd = '[可用指令] \ntest\t- BOT版本 \n/stop\t- 關閉BOT \n/start\t- 開啟BOT \n/help\t- 就這個指令R 87'
 # ----------------------------------------------------------
 class myThread (td.Thread):
    def __init__(self, user_message, event):
