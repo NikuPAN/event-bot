@@ -157,7 +157,7 @@ def onPlayerTalk(user_message, event):
             print(str(argu[1]))
             result = switchRegion(str(argu[1]))
             # reply_message = "NULL" #declare
-            if(result == "Invalid"):
+            if(result != "Invalid"):
                 reply_message = ("棒棒 系統時間已被設定為 " + result + " 時區.")
                 message = TextSendMessage(text = reply_message)
                 line_bot_api.reply_message(event.reply_token, message)
