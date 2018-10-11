@@ -37,15 +37,12 @@ twt = timezone('Asia/Taipei')
 class myThread (threading.Thread):
    def __init__(self, user_message, event):
       threading.Thread.__init__(self)
-      # self.threadID = threadID
       self.user_message = user_message
       self.event = event
-
+	  
    def run(self):
-      print "Starting " + self.name
-      # Get lock to synchronize threads
+      print("Starting Thread")
       onPlayerTalk(self.user_message, self.event)	
-      # Free lock to release next thread
 
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
