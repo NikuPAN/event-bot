@@ -152,7 +152,7 @@ def    onPlayerTalk(user_message, event):
 
         elif(user_message.find("timezone ") == 0):
             argu = user_message.lstrip("timezone ")
-            result = switchRegion(argu)
+            result = str( switchRegion(argu) )
             reply_message = "NULL" #declare
             if(result == "Invalid"):
                 reply_message = ("目前沒有提供此時區選項！")
