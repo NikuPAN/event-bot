@@ -35,7 +35,7 @@ has_said = 0
 fmt = '%H:%M'
 systime = timezone('Asia/Taipei')
 sysregion = 'TW'
-usage_cmd = '[可用指令] \ntest\t- BOT版本 \ntime\t- 報時 \n/stop\t- 關閉BOT \n/start\t- 開啟BOT \n/help\t- 可用指令'
+usage_cmd = '[可用指令] \ntest\t- BOT版本 \ntime\t- 報時 \ntz\t- 設定時區 \n/stop\t- 關閉BOT \n/start\t- 開啟BOT \n/help\t- 可用指令'
 # ----------------------------------------------------------
 class myThread (td.Thread):
    def __init__(self, user_message, event):
@@ -152,7 +152,7 @@ def onPlayerTalk(user_message, event):
             message = TextSendMessage(text = reply_message)
             line_bot_api.reply_message(event.reply_token, message)
 
-        elif(user_message.find("timezone ") == 0):
+        elif(user_message.find("tz ") == 0):
             argu = user_message.split(' ')
             print(str(argu[1]))
             result = switchRegion(str(argu[1]))
