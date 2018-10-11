@@ -29,7 +29,7 @@ handler = WebhookHandler('9ffa9b07f9a2dfef20cffd300af6df4e')
 
 # global variables
 app_name = '髮落士報時'
-version = 68
+version = 73
 mode = 1
 has_said = 0
 fmt = '%H:%M'
@@ -154,7 +154,7 @@ def onPlayerTalk(user_message, event):
 
         elif(user_message.find("timezone ") == 0):
             argu = user_message.strip(' ')
-            printf(str(argu[1]))
+            print(str(argu[1]))
             result = switchRegion(str(argu[1]))
             reply_message = "NULL" #declare
             if(result == "Invalid"):
