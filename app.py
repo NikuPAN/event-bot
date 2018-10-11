@@ -128,7 +128,7 @@ def set_timeRegion_AUMEL():
     return "墨爾本"
 
 def switchRegion(argu):
-    return switcher = {
+    return {
         "tw": set_timeRegion_TW,
         "jp": set_timeRegion_JP,
         "qld": set_timeRegion_AUQLD,
