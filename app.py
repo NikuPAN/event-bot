@@ -154,7 +154,7 @@ def onPlayerTalk(user_message, event):
 
         elif(user_message.find("tz ") == 0):
             argu = user_message.split(' ')
-            print(str(argu[1]))
+            # print(str(argu[1]))
             result = switchRegion(str(argu[1]))
             # reply_message = "NULL" #declare
             if(result != "Invalid"):
