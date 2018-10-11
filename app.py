@@ -128,14 +128,16 @@ def set_timeRegion_AUMEL():
     return "墨爾本"
 
 def switchRegion(argu):
-    switch = {
-        "tw": set_timeRegion_TW,
-        "jp": set_timeRegion_JP,
-        "qld": set_timeRegion_AUQLD,
-        "mel": set_timeRegion_AUMEL
-    }
-    funct = switch.get(argu, "Invalid")
-    return funct
+    if(argu == "tw"):
+        return set_timeRegion_TW()
+    elif(argu == "jp"):
+        return set_timeRegion_JP()
+    elif(argu == "qld"):
+        return set_timeRegion_AUQLD()
+    elif(argu == "mel"):
+        return set_timeRegion_AUMEL()
+    else:
+        return "Invalid"
 
 # english characters have been lower cased. Refer handle_message(event):
 def    onPlayerTalk(user_message, event):
@@ -152,7 +154,7 @@ def    onPlayerTalk(user_message, event):
 
         elif(user_message.find("timezone ") == 0):
             argu = user_message.lstrip("timezone ")
-            result = str( switchRegion(argu) )
+            result = switchRegion(argu)
             reply_message = "NULL" #declare
             if(result == "Invalid"):
                 reply_message = ("目前沒有提供此時區選項！")
