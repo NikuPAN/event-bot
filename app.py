@@ -134,7 +134,7 @@ def switchRegion(argu):
         'qld': set_timeRegion_AUQLD,
 		'mel': set_timeRegion_AUMEL
     }
-	func = switcher.get(argu, lambda: "沒有此選項")
+	func = switcher.get(argu, lambda: 'Invalid')
 	return func()
 			
 # english characters have been lower cased. Refer handle_message(event):
@@ -153,7 +153,7 @@ def	onPlayerTalk(user_message, event):
 		elif(user_message.find("timezone ") == 0):
 			result = switchRegion( user_message.lstrip("timezone ") )
 			reply_message = 'NULL' #declare
-			if(result != "沒有此選項"):
+			if(result != 'Invalid'):
 				reply_message = ('系統時間已被設定為 ' + result + ' 時區.')
 			else:
 				reply_message = ('目前沒有提供此時區選項！')
