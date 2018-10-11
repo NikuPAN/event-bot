@@ -34,12 +34,12 @@ has_said = 0
 fmt = '%H:%M'
 twt = timezone('Asia/Taipei')
 # ----------------------------------------------------------
-class myThread (threading.Thread):
+class myThread (td.Thread):
    def __init__(self, user_message, event):
       threading.Thread.__init__(self)
       self.user_message = user_message
       self.event = event
-	  
+
    def run(self):
       print("Starting Thread")
       onPlayerTalk(self.user_message, self.event)	
