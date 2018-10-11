@@ -29,11 +29,12 @@ handler = WebhookHandler('9ffa9b07f9a2dfef20cffd300af6df4e')
 
 # global variables
 app_name = '髮落士報時'
-version = 43
+version = 44
 mode = 1
 has_said = 0
 fmt = '%H:%M'
 systime = timezone('Asia/Taipei')
+usage_cmd = '[可用指令] \ntest\t- BOT版本 \n/stop\t-關閉BOT \n/start-開啟BOT'
 # ----------------------------------------------------------
 class myThread (td.Thread):
    def __init__(self, user_message, event):
@@ -66,21 +67,25 @@ def handle_message(event):
 	user_message = event.message.text
 	
 	if(user_message == "test"):
-		message = TextSendMessage(text='歡迎使用'+app_name+' v1.0.'+str(version)+'！')
+		message = TextSendMessage(text='歡迎使用'+app_name+' v1.'+str(version)+'！')
 		line_bot_api.reply_message(event.reply_token,message)
-
 	elif(user_message == "/關閉" or user_message == "/stop"):
 		message = TextSendMessage(text=app_name+'已被關閉！')
 		line_bot_api.reply_message(event.reply_token,message)
 		mode = 0
-
 	elif(user_message == "/開啟" or user_message == "/start"):
 		message = TextSendMessage(text=app_name+'已經開啟！')
 		line_bot_api.reply_message(event.reply_token,message)
-		mode = 1
-	else:
-		# using thread
+		mode = 1	
+	elif(user_message == "/關閉" or user_message == "/help"):
+		usage(event)
+	else: # using thread
 		myThread(user_message, event).start()
+
+def usage(event):
+	global usage_cmd
+	message = TextSendMessage(text=usage_cmd)
+	line_bot_api.reply_message(event.reply_token,message)
 	
 def hour_Convert(Hour):
 	if(Hour >= 0 and Hour <= 3):
