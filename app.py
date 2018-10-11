@@ -34,7 +34,8 @@ mode = 1
 has_said = 0
 fmt = '%H:%M'
 systime = timezone('Asia/Taipei')
-usage_cmd = '[可用指令] \ntest\t- BOT版本 \n/stop\t- 關閉BOT \n/start\t- 開啟BOT \n/help\t- 就這個指令R 87'
+sysregion = 'TW'
+usage_cmd = '[可用指令] \ntest\t- BOT版本 \ntime\t- 報時 \n/stop\t- 關閉BOT \n/start\t- 開啟BOT \n/help\t- 可用指令'
 # ----------------------------------------------------------
 class myThread (td.Thread):
    def __init__(self, user_message, event):
@@ -64,8 +65,8 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
 	global app_name, version, mode
-	user_message = event.message.text
-	
+	user_message = event.message.text.lower()
+	# console command
 	if(user_message == "test"):
 		message = TextSendMessage(text='歡迎使用'+app_name+' v1.'+str(version)+'！')
 		line_bot_api.reply_message(event.reply_token,message)
@@ -79,7 +80,8 @@ def handle_message(event):
 		mode = 1	
 	elif(user_message == "/help"):
 		usage(event)
-	else: # using thread
+	# other command using thread
+	else:
 		myThread(user_message, event).start()
 
 def usage(event):
@@ -100,16 +102,61 @@ def hour_Convert(Hour):
 		return "下午 " + str(Hour - 12)
 	elif(Hour >= 19 and Hour <= 23):
 		return "晚上 " + str(Hour - 12)
+
+def set_timeRegion_TW():
+	global systime, sysregion
+	systime = timezone('Asia/Taipei')
+	sysregion = 'TW'
+	return '台北'
+
+def set_timeRegion_JP():
+	global systime, sysregion
+	systime = timezone('Asia/Tokyo')
+	sysregion = 'JP'
+	return '東京'
+
+def set_timeRegion_AUQLD():
+	global systime, sysregion
+	systime = timezone('Australia/Brisbane')
+	sysregion = 'AU/QLD'
+	return '布里斯本'
+
+def set_timeRegion_AUMEL():
+	global systime, sysregion
+	systime = timezone('Australia/Melbourne')
+	sysregion = 'AU/MEL'
+	return '墨爾本'
+
+def switchRegion(argu):
+    switcher = {
+        'tw': set_timeRegion_TW,
+        'jp': set_timeRegion_JP,
+        'qld': set_timeRegion_AUQLD,
+		'mel': set_timeRegion_AUMEL
+    }
+	func = switcher.get(argu, lambda: "沒有此選項")
+	return func()
 			
+# english characters have been lower cased. Refer handle_message(event):
 def	onPlayerTalk(user_message, event):
-	global mode, has_said, systime, fmt
+	global mode, has_said, systime, sysregion, fmt
 	time = str(datetime.now(systime).strftime(fmt))
 	(Hr, Mn) = time.split(':')
 	# Sc = str(datetime.time.second)
 	# only process message when mode = 1;
 	if(mode == 1):
 		if(user_message == "報時" or user_message == "time"):
-			reply_message = "真棒 " + hour_Convert(int(Hr)) + " 時 " + Mn + " 分了～哦耶！！"
+			reply_message = "真棒 " + hour_Convert(int(Hr)) + " 時 " + Mn + " 分("+sysregion+")了！！"
+			message = TextSendMessage(text = reply_message)
+			line_bot_api.reply_message(event.reply_token, message)
+
+		elif(user_message.find("timezone ") == 0):
+			result = switchRegion( user_message.lstrip("timezone ") )
+			reply_message = 'NULL' #declare
+			if(result != "沒有此選項"):
+				reply_message = ('系統時間已被設定為 ' + result + ' 時區.')
+			else:
+				reply_message = ('目前沒有提供此時區選項！')
 			message = TextSendMessage(text = reply_message)
 			line_bot_api.reply_message(event.reply_token, message)
 			
