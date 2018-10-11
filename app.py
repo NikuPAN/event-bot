@@ -36,7 +36,7 @@ twt = timezone('Asia/Taipei')
 # ----------------------------------------------------------
 class myThread (td.Thread):
    def __init__(self, user_message, event):
-      threading.Thread.__init__(self)
+      td.Thread.__init__(self)
       self.user_message = user_message
       self.event = event
 
