@@ -29,10 +29,11 @@ handler = WebhookHandler('9ffa9b07f9a2dfef20cffd300af6df4e')
 
 # global variables
 app_name = '髮落士報時'
+version = 'v1.0.42'
 mode = 1
 has_said = 0
 fmt = '%H:%M'
-twt = timezone('Asia/Taipei')
+systime = timezone('Asia/Taipei')
 # ----------------------------------------------------------
 class myThread (td.Thread):
    def __init__(self, user_message, event):
@@ -41,7 +42,6 @@ class myThread (td.Thread):
       self.event = event
 
    def run(self):
-      print("Starting Thread")
       onPlayerTalk(self.user_message, self.event)	
 
 # 監聽所有來自 /callback 的 Post Request
@@ -49,11 +49,9 @@ class myThread (td.Thread):
 def callback():
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
-
     # get request body as text
     body = request.get_data(as_text=True)
     app.logger.info("Request body: " + body)
-
     # handle webhook body
     try:
         handler.handle(body, signature)
@@ -64,25 +62,25 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-	global mode 
+	global app_name, version, mode
 	user_message = event.message.text
 	
 	if(user_message == "test"):
-		message = TextSendMessage(text='歡迎使用'+app_name+'！')
+		message = TextSendMessage(text='歡迎使用'+app_name+' '+version+'！'
 		line_bot_api.reply_message(event.reply_token,message)
-	elif(user_message == "/關機"):
-		quit()
+
 	elif(user_message == "/關閉" or user_message == "/stop"):
 		message = TextSendMessage(text=app_name+'已被關閉！')
 		line_bot_api.reply_message(event.reply_token,message)
 		mode = 0
+
 	elif(user_message == "/開啟" or user_message == "/start"):
 		message = TextSendMessage(text=app_name+'已經開啟！')
 		line_bot_api.reply_message(event.reply_token,message)
 		mode = 1
-	# onPlayerTalk(user_message, event)	
-	# using thread
-	myThread(user_message, event).start()
+	else:
+		# using thread
+		myThread(user_message, event).start()
 	
 def hour_Convert(Hour):
 	if(Hour >= 0 and Hour <= 3):
@@ -97,27 +95,21 @@ def hour_Convert(Hour):
 		return "下午 " + str(Hour - 12)
 	elif(Hour >= 19 and Hour <= 23):
 		return "晚上 " + str(Hour - 12)
-	
-	
-		
+			
 def	onPlayerTalk(user_message, event):
-	global mode
-	global has_said
-	global twt
-	global fmt
-	time = str(datetime.now(twt).strftime(fmt))
+	global mode, has_said, systime, fmt
+	time = str(datetime.now(systime).strftime(fmt))
 	(Hr, Mn) = time.split(':')
 	# Sc = str(datetime.time.second)
 	# only process message when mode = 1;
 	if(mode == 1):
 		if(user_message == "報時" or user_message == "time"):
-			# reply_message = "真棒 現在是" + hour_Convert(int(Hr)) + " 時 " + Mn + " 分～"
 			reply_message = "真棒 " + hour_Convert(int(Hr)) + " 時 " + Mn + " 分了～哦耶！！"
 			message = TextSendMessage(text = reply_message)
 			line_bot_api.reply_message(event.reply_token, message)
 			
 		if(int(Mn) == 0 and has_said == 0):
-			has_said = 1;
+			has_said = 1
 			reply_message = "好棒 " + hour_Convert(int(Hr)) + " 點了～"
 			message = TextSendMessage(text = reply_message)
 			line_bot_api.reply_message(event.reply_token, message)
@@ -126,7 +118,6 @@ def	onPlayerTalk(user_message, event):
 	if(int(Mn) >= 3 and has_said == 1):
 		has_said = 0
 	
-
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
