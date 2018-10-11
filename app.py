@@ -140,7 +140,7 @@ def switchRegion(argu):
         return "Invalid"
 
 # english characters have been lower cased. Refer handle_message(event):
-def    onPlayerTalk(user_message, event):
+def onPlayerTalk(user_message, event):
     global mode, has_said, systime, sysregion, fmt
     time = str(datetime.now(systime).strftime(fmt))
     (Hr, Mn) = time.split(':')
@@ -153,8 +153,8 @@ def    onPlayerTalk(user_message, event):
             line_bot_api.reply_message(event.reply_token, message)
 
         elif(user_message.find("timezone ") == 0):
-            argu = user_message.lstrip("timezone ")
-            result = switchRegion(argu)
+            argu = user_message.strip(' ')
+            result = switchRegion(argu[1])
             reply_message = "NULL" #declare
             if(result == "Invalid"):
                 reply_message = ("使用：timezone [tw/jp/qld/mel]")
