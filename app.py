@@ -29,7 +29,7 @@ handler = WebhookHandler('9ffa9b07f9a2dfef20cffd300af6df4e')
 
 # global variables
 app_name = '髮落士報時'
-version = 76
+version = 80
 mode = 1
 has_said = 0
 fmt = '%H:%M'
