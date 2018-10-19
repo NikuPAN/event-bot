@@ -29,7 +29,7 @@ handler = WebhookHandler('9ffa9b07f9a2dfef20cffd300af6df4e')
 
 # global variables
 app_name = '髮落士報時'
-version = 84
+version = 85
 mode = 1
 has_said = 0
 fmt = '%H:%M'
@@ -106,25 +106,25 @@ def hour_Convert(Hour):
 def set_timeRegion_TW():
     global systime, sysregion
     systime = timezone('Asia/Taipei')
-    sysregion = 'TW'
-    return "台北"
+    sysregion = '台灣'
+    return "台灣"
 
 def set_timeRegion_JP():
     global systime, sysregion
     systime = timezone('Asia/Tokyo')
-    sysregion = 'JP'
-    return "東京"
+    sysregion = '日本'
+    return "日本"
 
 def set_timeRegion_AUQLD():
     global systime, sysregion
     systime = timezone('Australia/Brisbane')
-    sysregion = 'AU/QLD'
+    sysregion = '布里斯本'
     return "布里斯本"
 
 def set_timeRegion_AUMEL():
     global systime, sysregion
     systime = timezone('Australia/Melbourne')
-    sysregion = 'AU/MEL'
+    sysregion = '墨爾本'
     return "墨爾本"
 
 def switchRegion(argu):
@@ -148,7 +148,7 @@ def onPlayerTalk(user_message, event):
     # only process message when mode = 1;
     if(mode == 1):
         if(user_message == "報時" or user_message == "time"):
-            reply_message = "真棒 " + hour_Convert(int(Hr)) + " 時 " + Mn + " 分("+sysregion+") 又可以拼排了！"
+            reply_message = "真棒 "+sysregion+" "+ hour_Convert(int(Hr)) + " 時 " + Mn + " 分 又可以拼排了！"
             message = TextSendMessage(text = reply_message)
             line_bot_api.reply_message(event.reply_token, message)
 
