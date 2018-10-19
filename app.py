@@ -148,7 +148,7 @@ def onPlayerTalk(user_message, event):
     # only process message when mode = 1;
     if(mode == 1):
         if(user_message == "報時" or user_message == "time"):
-            reply_message = "真棒 " + hour_Convert(int(Hr)) + " 時 " + Mn + " 分("+sysregion+")，又可以打排名了！"
+            reply_message = "真棒 " + hour_Convert(int(Hr)) + " 時 " + Mn + " 分("+sysregion+") 又可以拼排了！"
             message = TextSendMessage(text = reply_message)
             line_bot_api.reply_message(event.reply_token, message)
 
